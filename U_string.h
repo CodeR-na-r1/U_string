@@ -20,7 +20,14 @@ public:
 	size_t get_capacity() const;
 	
 	void clear();
+
 	void push(const wchar_t& elem);
+
+	void increase(const U_string& _data, const int position);
+	void increase(const wchar_t* _data, const int position);
+	void increase(const wstring& _data, const int position);
+	void increase(const string& _data, const int position);
+	void increase(const char* _data, const int position);
 
 	friend wostream& operator<<(wostream& out, const U_string& u_str);
 	friend wistream& operator>>(wistream& in, U_string& u_str);

@@ -88,6 +88,55 @@ void U_string::push(const wchar_t& elem)
 	return;
 }
 
+void U_string::increase(const U_string& _data, int position)
+{
+	if (position < 1 || position>this->lenght + 1) throw "Error position in 'increase'";
+
+	--position;
+
+	if (this->capacity < this->lenght + _data.lenght)
+	{
+		this->_change_size(this->lenght + _data.lenght + 8);
+	}
+
+	for (int i = this->lenght + _data.lenght - 1; i >= position + _data.lenght; --i)
+	{
+		this->str[i] = this->str[i - _data.lenght];
+	}
+
+	int index_data = _data.lenght - 1;
+	for (int i = position - 1 + _data.lenght; i >= position; --i)
+	{
+		this->str[i] = _data.str[index_data];
+		--index_data;
+	}
+
+	this->lenght += _data.lenght;
+
+	return;
+}
+
+void U_string::increase(const wchar_t* _data, const int position)
+{
+
+}
+
+void U_string::increase(const wstring& _data, const int position)
+{
+
+}
+
+void U_string::increase(const string& _data, const int position)
+{
+
+}
+
+void U_string::increase(const char* _data, const int position)
+{
+
+}
+
+
 wostream& operator<<(wostream& out, const U_string& u_str)
 {
 	for (int i = 0; i < u_str.lenght; ++i)
