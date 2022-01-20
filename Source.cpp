@@ -30,8 +30,8 @@ int main()
 		wcout << i + 1 << " element = " << elements[i] << endl;
 	}
 
-	U_string str_5("TTTK");
-	U_string separators = "TTK";
+	U_string str_5("VCTTTK");
+	U_string separators = "*T";
 	wcout << endl;
 	wcout << separators << " " << str_5 << endl;
 	elements.clear();

@@ -261,7 +261,7 @@ vector<U_string> U_string::find(const U_string& mask_template, const int max_cou
 	
 	for (int i = 0; i < this->lenght; ++i)
 	{
-		if (now_index_mask == mask_template.lenght) { res.push_back(this->cut(from, i)); i = ++from - 1; now_index_mask = 0; ++count_elems; if (count_elems == max_count_elem) { break; } }
+		if (now_index_mask == mask_template.lenght) { res.push_back(this->cut(from, i)); i = ++from; now_index_mask = 0; ++count_elems; if (count_elems == max_count_elem) { break; } }
 		if (mask_template.str[now_index_mask] == '?') { ++now_index_mask; continue; }
 		if (mask_template.str[now_index_mask] == '*') { star = true; --i; ++now_index_mask; continue; }
 		if (star)
