@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <clocale>
 
 #include "U_string.h"
 
@@ -7,39 +8,71 @@ using namespace std;
 
 int main()
 {
-	const char* s = "ggg";
-	U_string str=s;
-	wcout << str << endl;
-	wcin >> str;
-	wcout << str << endl;
-	wcout << str.get_lenght() << endl;
-	U_string str_2 = "cat";
-	U_string str_3 = "X";
-	str_2.increase(str_3, 4);
-	wcout << str_2 << endl;
+	setlocale(LC_ALL, "");
+	wcout << L"Работа конструкторов:" << endl;
 
-	U_string str_4 = "RUSSI";
-	str_4.push_back("A");
-	wcout << str_4 << endl;
+	U_string example_1("example_1");
 
-	U_string separator("S");
+	const wchar_t* c_string = L"example_2";
+	U_string example_2(c_string);
+
+	string str("example_3");
+	U_string example_3(str);
+
+	wstring wide_character_string(L"example_4");
+	U_string example_4(wide_character_string);
+
+	U_string example_5(example_1);
+
+	wcout << example_1 << " " << example_2 << " " << example_3 << " " << example_4 << " " << example_5 << " " << endl << endl;
+
+	wcout << L"Поиск по заданному разделителю:" << endl;
+	example_1 = "RUSSI";
+	example_1.push_back("A");
+	wcout << L"Поиск в строке: " << example_1 << endl;
+	wcout << L"Разделитель: " << L"S" << endl;
+	wcout << L"Результат:" << endl;
 	vector<U_string> elements;
-	elements = str_4.split(separator);
+	elements = example_1.split( U_string("S") );
 	for (int i = 0; i < elements.size(); i++)
 	{
-		wcout << i + 1 << " element = " << elements[i] << endl;
+		wcout << i + 1 << L" element = " << elements[i] << endl;
 	}
 
-	U_string str_5("VCTTTK");
-	U_string separators = "*T";
-	wcout << endl;
-	wcout << separators << " " << str_5 << endl;
+	wcout << endl << L"Поиск в строке: " << example_1 << endl;
+	wcout << L"Разделитель: " << L"SS" << endl;
+	wcout << L"Результат:" << endl;
+	U_string separator("SS");
 	elements.clear();
-	elements = str_5.find(separators);
+	elements = example_1.split(separator);
 	for (int i = 0; i < elements.size(); i++)
 	{
-		wcout << i + 1 << " element = " << elements[i] << endl;
+		wcout << i + 1 << L" element = " << elements[i] << endl;
+	}
+	wcout << endl;
+
+	example_1 = "VCTTTK";
+	wcout << L"Поиск в строке подстроки, с возможностью поиска по маске (символы ? и *):" << endl;
+	separator = "*T";
+	wcout << L"Строка: " << example_1 << L";\tШаблон (маска):" << separator << endl;
+	elements.clear();
+	elements = example_1.find(separator);
+	for (int i = 0; i < elements.size(); i++)
+	{
+		wcout << i + 1 << L" element = " << elements[i] << endl;
 	}
 
+	wcout << endl;
+	example_1 = L"РИЯ";
+	wcout << L"Копирование в строку: " << example_1 << endl << L"Копируемая строка: " << L"ОСС" << endl;
+	example_1.increase(L"ОСС", 2);
+	wcout << L"Результат: " << example_1 << endl;
+
+	wcout << endl;
+	wcout << L"Копирование в конец строки: " << example_1 << endl << L"Копируемая строка: " << L"!!!" << endl;
+	const wchar_t* temp = L"!!!";
+	example_1.push_back(temp);
+	wcout << L"Результат: " << example_1 << endl;
+	
 	return 0;
 }
