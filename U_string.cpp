@@ -285,6 +285,28 @@ vector<U_string> U_string::find(const U_string& mask_template, const int max_cou
 	return res;
 }
 
+void U_string::get_statistics() const
+{
+	vector<U_string> elements;
+	U_string separator;
+
+	wcout << L"Statistics for the line: " << endl << *this << endl;
+
+	separator = ".";
+	elements = this->split(separator);
+	wcout << L"Number of proposals: " << elements.size() << endl;
+	elements.clear();
+
+	separator = " ";
+	elements = this->split(separator);
+	wcout << L"Number of words: " << elements.size() << endl;
+	elements.clear();
+	
+	wcout << L"Number of characters: " << this->lenght << endl;
+
+	return;
+}
+
 U_string& U_string::operator=(const U_string& u_str)
 {
 	if (this->capacity < u_str.lenght)
@@ -295,11 +317,6 @@ U_string& U_string::operator=(const U_string& u_str)
 	for (int i = 0; i < u_str.lenght; ++i)
 	{
 		this->str[i] = u_str.str[i];
-	}
-
-	for (int i = this->lenght; i < this->capacity; ++i)
-	{
-		this->str[i] = '\0';
 	}
 
 	this->lenght = u_str.lenght;

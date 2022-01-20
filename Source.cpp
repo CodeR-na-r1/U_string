@@ -73,6 +73,18 @@ int main()
 	const wchar_t* temp = L"!!!";
 	example_1.push_back(temp);
 	wcout << L"Результат: " << example_1 << endl;
-	
+
+	example_1 = L"An arbitrary string for calculating word statistics and so on. Произвольная строка для подсчета статистики слов и тд.";
+	wcout << example_1 << endl;
+	wcout << endl << L"Получение статистики:" << endl;
+	separator = " ";
+	wcout << L"Строка:" << endl << example_1 << endl;
+	elements.clear();
+	elements = example_1.split(separator);
+	for (int i = 0; i < elements.size(); i++)
+	{
+		wcout << i + 1 << L" element = " << elements[i] << endl;
+	}
+
 	return 0;
 }
