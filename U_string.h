@@ -29,6 +29,12 @@ public:
 	void increase(const string& _data, const int position);
 	void increase(const char* _data, const int position);
 
+	void push_back(const U_string& _data);
+	void push_back(const wchar_t* _data);
+	void push_back(const wstring& _data);
+	void push_back(const string& _data);
+	void push_back(const char* _data);
+
 	friend wostream& operator<<(wostream& out, const U_string& u_str);
 	friend wistream& operator>>(wistream& in, U_string& u_str);
 

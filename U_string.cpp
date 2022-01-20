@@ -118,30 +118,72 @@ void U_string::increase(const U_string& _data, int position)
 
 void U_string::increase(const wchar_t* _data, const int position)
 {
+	this->increase(U_string(_data), position);
 
+	return;
 }
 
 void U_string::increase(const wstring& _data, const int position)
 {
+	this->increase(U_string(_data), position);
 
+	return;
 }
 
 void U_string::increase(const string& _data, const int position)
 {
+	this->increase(U_string(_data), position);
 
+	return;
 }
 
 void U_string::increase(const char* _data, const int position)
 {
+	this->increase(U_string(_data), position);
 
+	return;
 }
 
+void U_string::push_back(const U_string& _data)
+{
+	this->increase(_data, _data.lenght);
+
+	return;
+}
+
+void U_string::push_back(const wchar_t* _data)
+{
+	this->increase(_data, wcslen(_data));
+
+	return;
+}
+
+void U_string::push_back(const wstring& _data)
+{
+	this->increase(_data, _data.length());
+
+	return;
+}
+
+void U_string::push_back(const string& _data)
+{
+	this->increase(_data, _data.length());
+
+	return;
+}
+
+void U_string::push_back(const char* _data)
+{
+	this->increase(_data, strlen(_data));
+
+	return;
+}
 
 wostream& operator<<(wostream& out, const U_string& u_str)
 {
 	for (int i = 0; i < u_str.lenght; ++i)
 	{
-		if (u_str.str[i] == '\0') break;	// must check
+		if (u_str.str[i] == '\0') break;
 		out << u_str.str[i];
 	}
 
