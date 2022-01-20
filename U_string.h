@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 #include <string>
 
 using namespace std;
@@ -34,6 +35,12 @@ public:
 	void push_back(const wstring& _data);
 	void push_back(const string& _data);
 	void push_back(const char* _data);
+
+	U_string cut(int _begin, int _end) const;
+	
+	vector<U_string> split(const U_string& separator, const int max_count_cut = 0) const;
+
+	//bool ope
 
 	friend wostream& operator<<(wostream& out, const U_string& u_str);
 	friend wistream& operator>>(wistream& in, U_string& u_str);

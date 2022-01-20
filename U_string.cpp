@@ -146,37 +146,104 @@ void U_string::increase(const char* _data, const int position)
 
 void U_string::push_back(const U_string& _data)
 {
-	this->increase(_data, _data.lenght);
+	this->increase(_data, this->lenght + 1);
 
 	return;
 }
 
 void U_string::push_back(const wchar_t* _data)
 {
-	this->increase(_data, wcslen(_data));
+	this->increase(_data, this->lenght + 1);
 
 	return;
 }
 
 void U_string::push_back(const wstring& _data)
 {
-	this->increase(_data, _data.length());
+	this->increase(_data, this->lenght + 1);
 
 	return;
 }
 
 void U_string::push_back(const string& _data)
 {
-	this->increase(_data, _data.length());
+	this->increase(_data, this->lenght + 1);
 
 	return;
 }
 
 void U_string::push_back(const char* _data)
 {
-	this->increase(_data, strlen(_data));
+	this->increase(_data, this->lenght + 1);
 
 	return;
+}
+
+U_string U_string::cut(int _begin, int _end) const
+{
+	if (_begin < 0 || _begin > _end || _end > this->lenght)
+	{
+		throw "Error arguments in 'cut'";
+	}
+
+	U_string res;
+
+	for (int i = _begin; i < _end; ++i)
+	{
+		res.push(this->str[i]);
+	}
+
+	return res;
+}
+
+vector<U_string> U_string::split(const U_string& separator, const int max_count_parts) const
+{
+	if (separator.lenght > this->lenght || separator.lenght == 0)
+	{
+		throw "Error arguments in 'split'";
+	}
+
+	vector<U_string> res;
+
+	bool end = false;
+	int count_parts(1);
+	int from(0);
+	for (int i = 0; i < this->lenght; ++i)
+	{
+		if (this->str[i] != separator.str[0])
+		{
+			continue;
+		}
+		else
+		{
+			if (this->lenght - i < separator.lenght)
+			{
+				break;
+			}
+			bool copmpare = true;
+			for (int j = 1; j < separator.lenght; j++)
+			{
+				if (this->str[i + j] != separator.str[j])
+				{
+					copmpare = false;
+					break;
+				}
+			}
+			if (copmpare)
+			{
+				if (from == i) break;
+				res.push_back(this->cut(from, i));
+				++count_parts;
+				if (count_parts == max_count_parts) break;
+				from = i + separator.lenght;
+			}
+		}
+	}
+
+	if (from < this->lenght)
+		res.push_back(this->cut(from, this->lenght));
+	
+	return res;
 }
 
 wostream& operator<<(wostream& out, const U_string& u_str)
