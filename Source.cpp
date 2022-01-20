@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 #include "U_string.h"
 
@@ -24,6 +25,17 @@ int main()
 	U_string separator("S");
 	vector<U_string> elements;
 	elements = str_4.split(separator);
+	for (int i = 0; i < elements.size(); i++)
+	{
+		wcout << i + 1 << " element = " << elements[i] << endl;
+	}
+
+	U_string str_5("TTTK");
+	U_string separators = "TTK";
+	wcout << endl;
+	wcout << separators << " " << str_5 << endl;
+	elements.clear();
+	elements = str_5.find(separators);
 	for (int i = 0; i < elements.size(); i++)
 	{
 		wcout << i + 1 << " element = " << elements[i] << endl;

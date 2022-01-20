@@ -40,6 +40,8 @@ public:
 	
 	vector<U_string> split(const U_string& separator, const int max_count_cut = 0) const;
 
+	vector<U_string> find(const U_string& mask_template, const int max_count_elem = -1) const;
+
 	//bool ope
 
 	friend wostream& operator<<(wostream& out, const U_string& u_str);

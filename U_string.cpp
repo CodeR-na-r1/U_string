@@ -205,7 +205,6 @@ vector<U_string> U_string::split(const U_string& separator, const int max_count_
 
 	vector<U_string> res;
 
-	bool end = false;
 	int count_parts(1);
 	int from(0);
 	for (int i = 0; i < this->lenght; ++i)
@@ -243,6 +242,46 @@ vector<U_string> U_string::split(const U_string& separator, const int max_count_
 	if (from < this->lenght)
 		res.push_back(this->cut(from, this->lenght));
 	
+	return res;
+}
+
+vector<U_string> U_string::find(const U_string& mask_template, const int max_count_elem) const
+{
+	if (mask_template.lenght > this->lenght || mask_template.lenght == 0)
+	{
+		throw "Error arguments in 'split'";
+	}
+
+	vector<U_string> res;
+
+	int now_index_mask(0);
+	int from(0);
+	int count_elems(0);
+	bool star = false;
+	
+	for (int i = 0; i < this->lenght; ++i)
+	{
+		if (now_index_mask == mask_template.lenght) { res.push_back(this->cut(from, i)); i = ++from - 1; now_index_mask = 0; ++count_elems; if (count_elems == max_count_elem) { break; } }
+		if (mask_template.str[now_index_mask] == '?') { ++now_index_mask; continue; }
+		if (mask_template.str[now_index_mask] == '*') { star = true; --i; ++now_index_mask; continue; }
+		if (star)
+		{
+			if (this->str[i] == mask_template.str[now_index_mask]) { star = false; ++now_index_mask; }
+			continue;
+		}
+		if (!star)
+		{
+			if (this->str[i] == mask_template.str[now_index_mask]) { ++now_index_mask; continue; }
+			now_index_mask = 0;
+			i = ++from - 1;
+		}
+	}
+
+	if (now_index_mask == mask_template.lenght)
+	{
+		res.push_back(this->cut(from, this->lenght));
+	}
+
 	return res;
 }
 
