@@ -42,7 +42,11 @@ public:
 
 	vector<U_string> find(const U_string& mask_template, const int max_count_elem = -1) const;
 
-	//bool ope
+	U_string& operator=(const U_string& u_str);
+	U_string& operator=(const wchar_t* u_str);
+	U_string& operator=(const wstring& u_str);
+	U_string& operator=(const string& u_str);
+	U_string& operator=(const char* u_str);
 
 	friend wostream& operator<<(wostream& out, const U_string& u_str);
 	friend wistream& operator>>(wistream& in, U_string& u_str);

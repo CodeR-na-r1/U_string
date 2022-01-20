@@ -285,6 +285,56 @@ vector<U_string> U_string::find(const U_string& mask_template, const int max_cou
 	return res;
 }
 
+U_string& U_string::operator=(const U_string& u_str)
+{
+	if (this->capacity < u_str.lenght)
+	{
+		this->_change_size(u_str.lenght + 8);
+	}
+
+	for (int i = 0; i < u_str.lenght; ++i)
+	{
+		this->str[i] = u_str.str[i];
+	}
+
+	for (int i = this->lenght; i < this->capacity; ++i)
+	{
+		this->str[i] = '\0';
+	}
+
+	this->lenght = u_str.lenght;
+
+	return *this;
+}
+
+U_string& U_string::operator=(const wchar_t* u_str)
+{
+	this->operator=(U_string(u_str));
+
+	return *this;
+}
+
+U_string& U_string::operator=(const wstring& u_str)
+{
+	this->operator=(U_string(u_str));
+
+	return *this;
+}
+
+U_string& U_string::operator=(const string& u_str)
+{
+	this->operator=(U_string(u_str));
+
+	return *this;
+}
+
+U_string& U_string::operator=(const char* u_str)
+{
+	this->operator=(U_string(u_str));
+
+	return *this;
+}
+
 wostream& operator<<(wostream& out, const U_string& u_str)
 {
 	for (int i = 0; i < u_str.lenght; ++i)
