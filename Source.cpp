@@ -1,6 +1,8 @@
-#include <iostream>
+ï»¿#include <iostream>
 #include <vector>
 #include <clocale>
+#include <io.h>
+#include <fcntl.h>
 
 #include "U_string.h"
 
@@ -9,7 +11,11 @@ using namespace std;
 int main()
 {
 	setlocale(LC_ALL, "");
-	wcout << L"Ðàáîòà êîíñòðóêòîðîâ:" << endl;
+	_setmode(_fileno(stdout), _O_U16TEXT);
+	_setmode(_fileno(stdin), _O_U16TEXT);
+	_setmode(_fileno(stderr), _O_U16TEXT);
+
+	wcout << L"Ð Ð°Ð±Ð¾Ñ‚Ð° ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€Ð¾Ð²:" << endl;
 
 	U_string example_1("example_1");
 
@@ -26,12 +32,12 @@ int main()
 
 	wcout << example_1 << " " << example_2 << " " << example_3 << " " << example_4 << " " << example_5 << " " << endl << endl;
 
-	wcout << L"Ïîèñê ïî çàäàííîìó ðàçäåëèòåëþ:" << endl;
+	wcout << L"ÐŸÐ¾Ð¸ÑÐº Ð¿Ð¾ Ð·Ð°Ð´Ð°Ð½Ð½Ð¾Ð¼Ñƒ Ñ€Ð°Ð·Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŽ:" << endl;
 	example_1 = "RUSSI";
 	example_1.push_back("A");
-	wcout << L"Ïîèñê â ñòðîêå: " << example_1 << endl;
-	wcout << L"Ðàçäåëèòåëü: " << L"S" << endl;
-	wcout << L"Ðåçóëüòàò:" << endl;
+	wcout << L"ÐŸÐ¾Ð¸ÑÐº Ð² ÑÑ‚Ñ€Ð¾ÐºÐµ: " << example_1 << endl;
+	wcout << L"Ð Ð°Ð·Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ: " << L"S" << endl;
+	wcout << L"Ð ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚:" << endl;
 	vector<U_string> elements;
 	elements = example_1.split( U_string("S") );
 	for (int i = 0; i < elements.size(); i++)
@@ -39,9 +45,9 @@ int main()
 		wcout << i + 1 << L" element = " << elements[i] << endl;
 	}
 
-	wcout << endl << L"Ïîèñê â ñòðîêå: " << example_1 << endl;
-	wcout << L"Ðàçäåëèòåëü: " << L"SS" << endl;
-	wcout << L"Ðåçóëüòàò:" << endl;
+	wcout << endl << L"ÐŸÐ¾Ð¸ÑÐº Ð² ÑÑ‚Ñ€Ð¾ÐºÐµ: " << example_1 << endl;
+	wcout << L"Ð Ð°Ð·Ð´ÐµÐ»Ð¸Ñ‚ÐµÐ»ÑŒ: " << L"SS" << endl;
+	wcout << L"Ð ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚:" << endl;
 	U_string separator("SS");
 	elements.clear();
 	elements = example_1.split(separator);
@@ -52,9 +58,9 @@ int main()
 	wcout << endl;
 
 	example_1 = "VCTTTK";
-	wcout << L"Ïîèñê â ñòðîêå ïîäñòðîêè, ñ âîçìîæíîñòüþ ïîèñêà ïî ìàñêå (ñèìâîëû ? è *):" << endl;
+	wcout << L"ÐŸÐ¾Ð¸ÑÐº Ð² ÑÑ‚Ñ€Ð¾ÐºÐµ Ð¿Ð¾Ð´ÑÑ‚Ñ€Ð¾ÐºÐ¸, Ñ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ÑÑ‚ÑŒÑŽ Ð¿Ð¾Ð¸ÑÐºÐ° Ð¿Ð¾ Ð¼Ð°ÑÐºÐµ (ÑÐ¸Ð¼Ð²Ð¾Ð»Ñ‹ ? Ð¸ *):" << endl;
 	separator = "*T";
-	wcout << L"Ñòðîêà: " << example_1 << L";\tØàáëîí (ìàñêà):" << separator << endl;
+	wcout << L"Ð¡Ñ‚Ñ€Ð¾ÐºÐ°: " << example_1 << L";\tÐ¨Ð°Ð±Ð»Ð¾Ð½ (Ð¼Ð°ÑÐºÐ°):" << separator << endl;
 	elements.clear();
 	elements = example_1.find(separator);
 	for (int i = 0; i < elements.size(); i++)
@@ -63,28 +69,24 @@ int main()
 	}
 
 	wcout << endl;
-	example_1 = L"ÐÈß";
-	wcout << L"Êîïèðîâàíèå â ñòðîêó: " << example_1 << endl << L"Êîïèðóåìàÿ ñòðîêà: " << L"ÎÑÑ" << endl;
-	example_1.increase(L"ÎÑÑ", 2);
-	wcout << L"Ðåçóëüòàò: " << example_1 << endl;
+	example_1 = L"Ð Ð˜Ð¯";
+	wcout << L"ÐšÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð² ÑÑ‚Ñ€Ð¾ÐºÑƒ: " << example_1 << endl << L"ÐšÐ¾Ð¿Ð¸Ñ€ÑƒÐµÐ¼Ð°Ñ ÑÑ‚Ñ€Ð¾ÐºÐ°: " << L"ÐžÐ¡Ð¡" << endl;
+	example_1.increase(L"ÐžÐ¡Ð¡", 2);
+	wcout << L"Ð ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚: " << example_1 << endl;
 
 	wcout << endl;
-	wcout << L"Êîïèðîâàíèå â êîíåö ñòðîêè: " << example_1 << endl << L"Êîïèðóåìàÿ ñòðîêà: " << L"!!!" << endl;
+	wcout << L"ÐšÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ Ð² ÐºÐ¾Ð½ÐµÑ† ÑÑ‚Ñ€Ð¾ÐºÐ¸: " << example_1 << endl << L"ÐšÐ¾Ð¿Ð¸Ñ€ÑƒÐµÐ¼Ð°Ñ ÑÑ‚Ñ€Ð¾ÐºÐ°: " << L"!!!" << endl;
 	const wchar_t* temp = L"!!!";
 	example_1.push_back(temp);
-	wcout << L"Ðåçóëüòàò: " << example_1 << endl;
+	wcout << L"Ð ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚: " << example_1 << endl;
 
-	example_1 = L"An arbitrary string for calculating word statistics and so on. Ïðîèçâîëüíàÿ ñòðîêà äëÿ ïîäñ÷åòà ñòàòèñòèêè ñëîâ è òä.";
-	wcout << example_1 << endl;
-	wcout << endl << L"Ïîëó÷åíèå ñòàòèñòèêè:" << endl;
-	separator = " ";
-	wcout << L"Ñòðîêà:" << endl << example_1 << endl;
-	elements.clear();
-	elements = example_1.split(separator);
-	for (int i = 0; i < elements.size(); i++)
-	{
-		wcout << i + 1 << L" element = " << elements[i] << endl;
-	}
+	example_1 = L"An arbitrary string for calculating word statistics and so on. ÐŸÑ€Ð¾Ð¸Ð·Ð²Ð¾Ð»ÑŒÐ½Ð°Ñ ÑÑ‚Ñ€Ð¾ÐºÐ° Ð´Ð»Ñ Ð¿Ð¾Ð´ÑÑ‡ÐµÑ‚Ð° ÑÑ‚Ð°Ñ‚Ð¸ÑÑ‚Ð¸ÐºÐ¸ ÑÐ»Ð¾Ð² Ð¸ Ñ‚Ð´.";
+	wcout << endl << L"ÐŸÐ¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ðµ ÑÑ‚Ð°Ñ‚Ð¸ÑÑ‚Ð¸ÐºÐ¸:" << endl;
+	example_1.get_statistics();
+
+	wcout << endl << L"Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÑÑ‚Ñ€Ð¾ÐºÑƒ Ð´Ð»Ñ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ¸ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾ÑÑ‚Ð¸ Ð²Ð²Ð¾Ð´Ð°: " << endl;
+	wcin >> example_1;
+	wcout << endl << L"Ð’Ñ‹ Ð²Ð²ÐµÐ»Ð¸: " << example_1 << endl;
 
 	return 0;
 }

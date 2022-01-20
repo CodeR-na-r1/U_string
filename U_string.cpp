@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "U_string.h"
 
@@ -290,7 +290,7 @@ void U_string::get_statistics() const
 	vector<U_string> elements;
 	U_string separator;
 
-	wcout << L"Statistics for the line: " << endl << *this << endl;
+	wcout << L"--- Statistics for the line: ---" << endl << *this << endl;
 
 	separator = ".";
 	elements = this->split(separator);
