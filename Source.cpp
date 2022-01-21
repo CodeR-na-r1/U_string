@@ -57,9 +57,9 @@ int main()
 	}
 	wcout << endl;
 
-	example_1 = "VCTTTK";
+	example_1 = "11wx wx";	//VCTTTK	//*T
 	wcout << L"Поиск в строке подстроки, с возможностью поиска по маске (символы ? и *):" << endl;
-	separator = "*T";
+	separator = "#wx";
 	wcout << L"Строка: " << example_1 << L";\tШаблон (маска):" << separator << endl;
 	elements.clear();
 	elements = example_1.find(separator);
