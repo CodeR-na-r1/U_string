@@ -44,11 +44,23 @@ public:
 
 	void get_statistics() const;
 
+	int get_amount_given_word(const U_string& u_str) const;
+
+	int get_amount_prepositions() const;
+
 	U_string& operator=(const U_string& u_str);
 	U_string& operator=(const wchar_t* u_str);
 	U_string& operator=(const wstring& u_str);
 	U_string& operator=(const string& u_str);
 	U_string& operator=(const char* u_str);
+
+	bool operator==(const U_string& u_str) const;
+	bool operator!=(const U_string& u_str) const;
+
+	bool operator>(const U_string& u_str) const;
+	bool operator>=(const U_string& u_str) const;
+	bool operator<(const U_string& u_str) const;
+	bool operator<=(const U_string& u_str) const;
 
 	friend wostream& operator<<(wostream& out, const U_string& u_str);
 	friend wistream& operator>>(wistream& in, U_string& u_str);

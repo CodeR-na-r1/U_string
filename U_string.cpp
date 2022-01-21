@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "U_string.h"
+#include "U-string.h"
 
 U_string::U_string()
 {
@@ -307,6 +307,16 @@ void U_string::get_statistics() const
 	return;
 }
 
+int U_string::get_amount_given_word(const U_string& u_str) const
+{
+
+}
+
+int U_string::get_amount_prepositions() const
+{
+
+}
+
 U_string& U_string::operator=(const U_string& u_str)
 {
 	if (this->capacity < u_str.lenght)
@@ -350,6 +360,85 @@ U_string& U_string::operator=(const char* u_str)
 	this->operator=(U_string(u_str));
 
 	return *this;
+}
+
+bool U_string::operator==(const U_string& u_str) const
+{
+	if (this->lenght != u_str.lenght)
+		return false;
+
+	for (int i = 0; i < this->lenght; ++i)
+	{
+		if (this->str[i] != u_str.str[i])
+			return  false;
+	}
+
+	return true;
+}
+
+bool U_string::operator!=(const U_string& u_str) const
+{
+	return !this->operator==(u_str);
+}
+
+bool U_string::operator>(const U_string& u_str) const
+{
+	if (this->lenght > u_str.lenght)
+	{
+		return true;
+	}
+
+	if (this->lenght < u_str.lenght)
+	{
+		return false;
+	}
+
+	for (int i = 0; i < this->lenght; ++i)
+	{
+		if (this->str[i] > u_str.str[i])
+			return true;
+		else if (this->str[i] < u_str.str[i])
+			return false;
+		else
+			continue;
+	}
+
+	return false;
+}
+
+bool U_string::operator>=(const U_string& u_str) const
+{
+	if (this->lenght > u_str.lenght)
+	{
+		return true;
+	}
+
+	if (this->lenght < u_str.lenght)
+	{
+		return false;
+	}
+
+	for (int i = 0; i < this->lenght; ++i)
+	{
+		if (this->str[i] >= u_str.str[i])
+			return true;
+		else if (this->str[i] < u_str.str[i])
+			return false;
+		else
+			continue;
+	}
+
+	return true;
+}
+
+bool U_string::operator<(const U_string& u_str) const
+{
+	return !this->operator>(u_str);
+}
+
+bool U_string::operator<=(const U_string& u_str) const
+{
+	return !this->operator>=(u_str);
 }
 
 wostream& operator<<(wostream& out, const U_string& u_str)
