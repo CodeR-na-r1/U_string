@@ -109,5 +109,10 @@ int main()
 	wcout << endl << L"Строка поиска: " << example_1 << L"\tПодсчитываемое слово: " << example_2 << endl;
 	wcout << L"Результат: " << example_1.get_amount_given_word(example_2) << endl;
 
+	//wcout << endl << L"Подсчёт предогов в строке:" << endl;
+	//example_1 = L"Свобода ничего не стоит, если она не включает в себя свободу ошибаться.";
+	//wcout << L"Строка поиска: " << example_1 << endl;
+	//wcout << L"Результат: " << example_1.get_amount_prepositions() << endl;
+	
 	return 0;
 }

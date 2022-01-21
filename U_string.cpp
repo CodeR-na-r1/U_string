@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "U_string.h"
+#include <codecvt>
 
 U_string::U_string()
 {
@@ -249,7 +250,7 @@ vector<U_string> U_string::find(const U_string& mask_template, const int max_cou
 {
 	if (mask_template.lenght > this->lenght || mask_template.lenght == 0)
 	{
-		throw "Error arguments in 'split'";
+		throw "Error arguments in 'find'";
 	}
 
 	vector<U_string> res;
@@ -322,6 +323,34 @@ int U_string::get_amount_given_word(const U_string& u_str) const
 
 int U_string::get_amount_prepositions() const
 {
+	set<U_string> contain;
+	wifstream in(L"prepositions.txt");
+	in.imbue(std::locale(in.getloc(), new std::codecvt_utf16<wchar_t, 1114111UL, std::little_endian>));
+
+	if (!in.is_open())
+	{
+		wcout << L"File opening error!" << endl;
+		return 0;
+	}
+
+	U_string temp;
+
+	this->get_line(in, temp);
+
+	while (temp.lenght)
+	{
+		wcout << temp << endl;
+		contain.insert(temp);
+		this->get_line(in, temp);
+	}
+	in.close();
+
+	wcout << L"Предлоги:" << endl;
+	for (auto it = contain.begin(); it != contain.end(); ++it)
+	{
+		wcout << *it << endl;
+	}
+
 	return 0;
 }
 
@@ -474,6 +503,24 @@ wistream& operator>>(wistream& in, U_string& u_str)
 	}
 
 	return in;
+}
+
+void U_string::get_line(wifstream& in, U_string& u_str) const
+{
+	u_str.clear();
+
+	wchar_t temp;
+	in >> temp;
+	wcout << temp << endl;
+
+	while (temp != L'\n' && !in.eof())
+	{
+		u_str.push(temp);
+		wcout << u_str << endl;
+		in >> temp;
+	}
+
+	return;
 }
 
 U_string::~U_string()

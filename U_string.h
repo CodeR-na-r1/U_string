@@ -1,6 +1,9 @@
 ﻿#pragma once
 
 #include <iostream>
+#include <fstream>
+
+#include <set>
 #include <vector>
 #include <string>
 
@@ -64,6 +67,9 @@ public:
 
 	friend wostream& operator<<(wostream& out, const U_string& u_str);
 	friend wistream& operator>>(wistream& in, U_string& u_str);
+
+	//friend ifstream& operator>>(ifstream& in, U_string& u_str);
+	void get_line(wifstream& in, U_string& u_str) const;
 
 	~U_string();
 
