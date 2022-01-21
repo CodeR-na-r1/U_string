@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "U-string.h"
+#include "U_string.h"
 
 U_string::U_string()
 {
@@ -230,7 +230,7 @@ vector<U_string> U_string::split(const U_string& separator, const int max_count_
 			}
 			if (copmpare)
 			{
-				if (from == i) break;
+				if (from == i) continue;
 				res.push_back(this->cut(from, i));
 				++count_parts;
 				if (count_parts == max_count_parts) break;
@@ -309,12 +309,14 @@ void U_string::get_statistics() const
 
 int U_string::get_amount_given_word(const U_string& u_str) const
 {
+	vector<U_string> res = this->find(u_str);
 
+	return res.size();
 }
 
 int U_string::get_amount_prepositions() const
 {
-
+	return 0;
 }
 
 U_string& U_string::operator=(const U_string& u_str)

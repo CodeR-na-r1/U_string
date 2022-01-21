@@ -1,10 +1,10 @@
-п»ї#include <iostream>
+#include <iostream>
 #include <vector>
 #include <clocale>
 #include <io.h>
 #include <fcntl.h>
 
-#include "U-string.h"
+#include "U_string.h"
 
 using namespace std;
 
@@ -15,7 +15,7 @@ int main()
 	_setmode(_fileno(stdin), _O_U16TEXT);
 	_setmode(_fileno(stderr), _O_U16TEXT);
 
-	wcout << L"Р Р°Р±РѕС‚Р° РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂРѕРІ:" << endl;
+	wcout << L"Работа конструкторов:" << endl;
 
 	U_string example_1("example_1");
 
@@ -32,22 +32,22 @@ int main()
 
 	wcout << example_1 << " " << example_2 << " " << example_3 << " " << example_4 << " " << example_5 << " " << endl << endl;
 
-	wcout << L"РџРѕРёСЃРє РїРѕ Р·Р°РґР°РЅРЅРѕРјСѓ СЂР°Р·РґРµР»РёС‚РµР»СЋ:" << endl;
+	wcout << L"Поиск по заданному разделителю:" << endl;
 	example_1 = "RUSSI";
 	example_1.push_back("A");
-	wcout << L"РџРѕРёСЃРє РІ СЃС‚СЂРѕРєРµ: " << example_1 << endl;
-	wcout << L"Р Р°Р·РґРµР»РёС‚РµР»СЊ: " << L"S" << endl;
-	wcout << L"Р РµР·СѓР»СЊС‚Р°С‚:" << endl;
+	wcout << L"Поиск в строке: " << example_1 << endl;
+	wcout << L"Разделитель: " << L"S" << endl;
+	wcout << L"Результат:" << endl;
 	vector<U_string> elements;
-	elements = example_1.split( U_string("S") );
+	elements = example_1.split(U_string("S"));
 	for (int i = 0; i < elements.size(); i++)
 	{
 		wcout << i + 1 << L" element = " << elements[i] << endl;
 	}
 
-	wcout << endl << L"РџРѕРёСЃРє РІ СЃС‚СЂРѕРєРµ: " << example_1 << endl;
-	wcout << L"Р Р°Р·РґРµР»РёС‚РµР»СЊ: " << L"SS" << endl;
-	wcout << L"Р РµР·СѓР»СЊС‚Р°С‚:" << endl;
+	wcout << endl << L"Поиск в строке: " << example_1 << endl;
+	wcout << L"Разделитель: " << L"SS" << endl;
+	wcout << L"Результат:" << endl;
 	U_string separator("SS");
 	elements.clear();
 	elements = example_1.split(separator);
@@ -58,9 +58,9 @@ int main()
 	wcout << endl;
 
 	example_1 = "VCTTTK";
-	wcout << L"РџРѕРёСЃРє РІ СЃС‚СЂРѕРєРµ РїРѕРґСЃС‚СЂРѕРєРё, СЃ РІРѕР·РјРѕР¶РЅРѕСЃС‚СЊСЋ РїРѕРёСЃРєР° РїРѕ РјР°СЃРєРµ (СЃРёРјРІРѕР»С‹ ? Рё *):" << endl;
+	wcout << L"Поиск в строке подстроки, с возможностью поиска по маске (символы ? и *):" << endl;
 	separator = "*T";
-	wcout << L"РЎС‚СЂРѕРєР°: " << example_1 << L";\tРЁР°Р±Р»РѕРЅ (РјР°СЃРєР°):" << separator << endl;
+	wcout << L"Строка: " << example_1 << L";\tШаблон (маска):" << separator << endl;
 	elements.clear();
 	elements = example_1.find(separator);
 	for (int i = 0; i < elements.size(); i++)
@@ -69,24 +69,45 @@ int main()
 	}
 
 	wcout << endl;
-	example_1 = L"Р РРЇ";
-	wcout << L"РљРѕРїРёСЂРѕРІР°РЅРёРµ РІ СЃС‚СЂРѕРєСѓ: " << example_1 << endl << L"РљРѕРїРёСЂСѓРµРјР°СЏ СЃС‚СЂРѕРєР°: " << L"РћРЎРЎ" << endl;
-	example_1.increase(L"РћРЎРЎ", 2);
-	wcout << L"Р РµР·СѓР»СЊС‚Р°С‚: " << example_1 << endl;
+	example_1 = L"РИЯ";
+	wcout << L"Копирование в строку: " << example_1 << endl << L"Копируемая строка: " << L"ОСС" << endl;
+	example_1.increase(L"ОСС", 2);
+	wcout << L"Результат: " << example_1 << endl;
 
 	wcout << endl;
-	wcout << L"РљРѕРїРёСЂРѕРІР°РЅРёРµ РІ РєРѕРЅРµС† СЃС‚СЂРѕРєРё: " << example_1 << endl << L"РљРѕРїРёСЂСѓРµРјР°СЏ СЃС‚СЂРѕРєР°: " << L"!!!" << endl;
+	wcout << L"Копирование в конец строки: " << example_1 << endl << L"Копируемая строка: " << L"!!!" << endl;
 	const wchar_t* temp = L"!!!";
 	example_1.push_back(temp);
-	wcout << L"Р РµР·СѓР»СЊС‚Р°С‚: " << example_1 << endl;
+	wcout << L"Результат: " << example_1 << endl;
 
-	example_1 = L"An arbitrary string for calculating word statistics and so on. РџСЂРѕРёР·РІРѕР»СЊРЅР°СЏ СЃС‚СЂРѕРєР° РґР»СЏ РїРѕРґСЃС‡РµС‚Р° СЃС‚Р°С‚РёСЃС‚РёРєРё СЃР»РѕРІ Рё С‚Рґ.";
-	wcout << endl << L"РџРѕР»СѓС‡РµРЅРёРµ СЃС‚Р°С‚РёСЃС‚РёРєРё:" << endl;
+	example_1 = L"An arbitrary string for calculating word statistics and so on. Произвольная строка для подсчета статистики слов и тд.";
+	wcout << endl << L"Получение статистики:" << endl;
 	example_1.get_statistics();
 
-	wcout << endl << L"Р’РІРµРґРёС‚Рµ СЃС‚СЂРѕРєСѓ РґР»СЏ РїСЂРѕРІРµСЂРєРё РєРѕСЂСЂРµРєС‚РЅРѕСЃС‚Рё РІРІРѕРґР°: " << endl;
+	wcout << endl << L"Введите строку для проверки корректности ввода: " << endl;
 	wcin >> example_1;
-	wcout << endl << L"Р’С‹ РІРІРµР»Рё: " << example_1 << endl;
+	wcout << endl << L"Вы ввели: " << example_1 << endl;
+
+	wcout << endl << L"Проверка оператора сравнения (==) : " << endl;
+	example_1 = L"Строка 1";
+	example_2 = L"Строка 1";
+	wcout << L"Строка 1: " << example_1 << L"\tСтрока 2: "<< example_2<< endl;
+	wcout << L"Результат: " << (example_1 == example_2) << endl;
+
+	wcout << endl << L"Проверка оператора неравенства (!=) : " << endl;
+	example_1 = L"Строка 1";
+	example_2 = L"Строка  1";
+	wcout << L"Строка 1: " << example_1 << L"\tСтрока 2: " << example_2 << endl;
+	wcout << L"Результат: " << (example_1 != example_2) << endl;
+
+	wcout << endl << L"Подсчет определенного слова в строке: " << endl;
+	example_1 = L"пр ппр ";
+	example_2 = L"п";
+	wcout << L"Строка поиска: " << example_1 << L"\tПодсчитываемое слово: " << example_2 << endl;
+	wcout << L"Результат: " << example_1.get_amount_given_word(example_2) << endl;
+	example_2 = L"пр";
+	wcout << endl << L"Строка поиска: " << example_1 << L"\tПодсчитываемое слово: " << example_2 << endl;
+	wcout << L"Результат: " << example_1.get_amount_given_word(example_2) << endl;
 
 	return 0;
 }
